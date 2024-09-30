@@ -3,7 +3,7 @@ import { useCheckoutValidationActions } from "@/checkout/state/checkoutValidatio
 import { useUser } from "@/checkout/hooks/useUser";
 import { useCheckoutUpdateStateActions } from "@/checkout/state/updateStateStore";
 import { useEvent } from "@/checkout/hooks/useEvent";
-import { Channel, type CheckoutError, useCheckoutCompleteMutation } from "@/checkout/graphql";
+import { type Channel, type CheckoutError, useCheckoutCompleteMutation } from "@/checkout/graphql";
 import { useCheckout } from "@/checkout/hooks/useCheckout";
 import { replaceUrl } from "@/checkout/lib/utils/url";
 import { Button } from "@/checkout/components";
@@ -24,9 +24,9 @@ const DisplayError = ({ errors, channel }: { errors: CheckoutError[] | null; cha
 		return (
 			<div className={"mb-6 flex flex-col gap-4 rounded-xl bg-amber-200 p-4"}>
 				<div>
-					Channel <strong>"{channel.slug}"</strong> requires payments to be made before placing orders. If you
-					are just experimenting with a sandbox and want to test placing unpaid orders,{" "}
-					<strong>enable</strong> <strong>"Allow unpaid orders"</strong> in the{" "}
+					Channel <strong>&quot;{channel.slug}&quot;</strong> requires payments to be made before placing
+					orders. If you are just experimenting with a sandbox and want to test placing unpaid orders,{" "}
+					<strong>enable &quot;Allow unpaid orders&quot;</strong> in the{" "}
 					{link ? (
 						<a href={link} className={"text-blue-600"} target={"_blank"}>
 							Channel settings.
