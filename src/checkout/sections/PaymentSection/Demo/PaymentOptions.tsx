@@ -54,7 +54,7 @@ const DisplayError = ({ errors, channel }: { errors: CheckoutError[] | null; cha
 	}
 };
 
-export const DemoPayment = () => {
+export const PlaceUnpaidOrder = () => {
 	const { checkout } = useCheckout();
 	const { authenticated } = useUser();
 	const { validateAllForms } = useCheckoutValidationActions();

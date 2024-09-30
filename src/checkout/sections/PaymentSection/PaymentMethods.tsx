@@ -1,6 +1,6 @@
 import { PaymentSectionSkeleton } from "@/checkout/sections/PaymentSection/PaymentSectionSkeleton";
 import { useCheckoutUpdateState } from "@/checkout/state/updateStateStore";
-import { DemoPayment } from "@/checkout/sections/PaymentSection/Demo/PaymentOptions";
+import { PlaceUnpaidOrder } from "@/checkout/sections/PaymentSection/Demo/PaymentOptions";
 
 export const PaymentMethods = () => {
 	const {
@@ -15,7 +15,7 @@ export const PaymentMethods = () => {
 
 	return (
 		<div className="gap-y-8">
-			<DemoPayment />
+			<PlaceUnpaidOrder />
 		</div>
 	);
 };
