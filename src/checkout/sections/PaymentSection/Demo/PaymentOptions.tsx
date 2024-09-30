@@ -3,13 +3,13 @@ import { useCheckoutValidationActions } from "@/checkout/state/checkoutValidatio
 import { useUser } from "@/checkout/hooks/useUser";
 import { useCheckoutUpdateStateActions } from "@/checkout/state/updateStateStore";
 import { useEvent } from "@/checkout/hooks/useEvent";
-import { type CheckoutError, useCheckoutCompleteMutation } from "@/checkout/graphql";
+import { Channel, type CheckoutError, useCheckoutCompleteMutation } from "@/checkout/graphql";
 import { useCheckout } from "@/checkout/hooks/useCheckout";
 import { replaceUrl } from "@/checkout/lib/utils/url";
 import { Button } from "@/checkout/components";
 import { Loader } from "@/ui/atoms/Loader";
 
-const DisplayError = ({ errors, channel }: { errors: CheckoutError[] | null; channel: string }) => {
+const DisplayError = ({ errors, channel }: { errors: CheckoutError[] | null; channel: Channel }) => {
 	if (!errors?.length) {
 		return null;
 	}
@@ -19,15 +19,14 @@ const DisplayError = ({ errors, channel }: { errors: CheckoutError[] | null; cha
 	if (hasNotFullyPaid) {
 		const link = process.env.NEXT_PUBLIC_SALEOR_API_URL?.replace(
 			"/graphql",
-			`/dashboard/channels/${channel}`,
+			`/dashboard/channels/${channel.id}`,
 		);
 		return (
 			<div className={"mb-6 flex flex-col gap-4 rounded-xl bg-amber-200 p-4"}>
 				<div>
-					<span className={"mb-1 rounded-3xl bg-amber-600 px-2 text-xs text-white"}>Error</span>
-					This channel requires payments to be made before placing orders. If you are just experimenting with
-					a sandbox and want to test placing unpaid orders, <strong>enable</strong>{" "}
-					<strong>"Allow unpaid orders"</strong> in the{" "}
+					Channel <strong>"{channel.slug}"</strong> requires payments to be made before placing orders. If you
+					are just experimenting with a sandbox and want to test placing unpaid orders,{" "}
+					<strong>enable</strong> <strong>"Allow unpaid orders"</strong> in the{" "}
 					{link ? (
 						<a href={link} className={"text-blue-600"} target={"_blank"}>
 							Channel settings.
@@ -95,7 +94,7 @@ export const PlaceUnpaidOrder = () => {
 
 	return (
 		<form onSubmit={onSubmit}>
-			<DisplayError errors={errors} channel={checkout?.channel.id} />
+			<DisplayError errors={errors} channel={checkout?.channel} />
 			<div className={"mb-6"}>
 				<button type={"submit"}>{isSubmitting ? <Loader /> : <Button label={"Place Order"} />}</button>
 			</div>
